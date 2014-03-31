@@ -48,7 +48,10 @@ object ArnoldErrorUtils{
     }else{
       val m = path.element.matcher
       if (path.element.startIndex == pathStartIndex && m.hasCustomLabel){
-        path.parent.element.matcher
+        path.parent match {
+          case null => path.element.matcher
+          case _ => path.parent.element.matcher
+        }
       }
       else null
     }

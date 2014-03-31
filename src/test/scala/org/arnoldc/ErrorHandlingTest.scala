@@ -35,6 +35,19 @@ class ErrorHandlingTest extends ArnoldGeneratorTest{
     )
   }
 
+  it should "throw an exception with Unexpected end of input message" in {
+    evaluatingError {
+      val code =
+        "IT'S SHOWTIME\n" +
+        "TALK TO THE HAND \"A\n"
+      getOutput(code)
+    } should startWith (
+      "WHAT THE FUCK DID I DO WRONG:\n" +
+      "Unexpected end of input, expected apply or '\"'\n" +
+      "I AM NOT A MIND READER. YOU HAVE NO RESPECT FOR LOGIC\n"
+    )
+  }
+
   def evaluatingError(func: => Any): String = {
     (evaluating{
       func
