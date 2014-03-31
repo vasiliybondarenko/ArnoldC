@@ -4,6 +4,7 @@ import org.parboiled.scala._
 import org.parboiled.errors.{ErrorUtils, ParsingException}
 import org.arnoldc.ast._
 import org.parboiled.support.Chars
+import org.arnoldc.parsers.ArnoldErrorUtils
 
 class ArnoldParser extends Parser {
 
@@ -213,7 +214,7 @@ class ArnoldParser extends Parser {
     parsingResult.result match {
       case Some(root) => root
       case None => throw new ParsingException(ParseError + ":\n" +
-        ErrorUtils.printParseErrors(parsingResult))
+        ArnoldErrorUtils.printParseErrors(parsingResult))
     }
   }
 
