@@ -37,6 +37,10 @@ Check the [wiki](http://github.com/lhartikk/ArnoldC/wiki/ArnoldC) for more detai
 
 [EndWhile](http://www.youtube.com/watch?v=R39e30FL37U) `CHILL`
 
+[Break](https://www.youtube.com/watch?v=if-za0Lu7tI) `I NEED A VACATION`
+
+[Break](https://www.youtube.com/watch?v=DCSwRM1qiXU) `GET OUT`
+
 PlusOperator `GET UP`
 
 [MinusOperator](http://www.youtube.com/watch?v=7Ox0Ehq-FRQ) `GET DOWN`
