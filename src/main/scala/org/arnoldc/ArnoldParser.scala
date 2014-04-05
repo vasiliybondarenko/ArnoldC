@@ -5,6 +5,31 @@ import org.parboiled.errors.{ErrorUtils, ParsingException}
 import org.arnoldc.ast._
 import org.parboiled.support.Chars
 import org.arnoldc.parsers.ArnoldErrorUtils
+import org.arnoldc.ast.WhileNode
+import org.arnoldc.ast.MinusExpressionNode
+import org.arnoldc.ast.GreaterThanOrEqualNode
+import org.arnoldc.ast.ConditionNode
+import org.arnoldc.ast.MainMethodNode
+import org.arnoldc.ast.CallMethodNode
+import org.arnoldc.ast.OrNode
+import scala.Some
+import org.arnoldc.ast.ModuloExpressionNode
+import org.arnoldc.ast.StringNode
+import org.arnoldc.ast.EqualToNode
+import org.arnoldc.ast.NumberNode
+import org.arnoldc.ast.AssignVariableNode
+import org.arnoldc.ast.VariableNode
+import org.arnoldc.ast.PrintNode
+import org.arnoldc.ast.RootNode
+import org.arnoldc.ast.MultiplicationExpressionNode
+import org.arnoldc.ast.DeclareIntNode
+import org.arnoldc.ast.AndNode
+import org.arnoldc.ast.PlusExpressionNode
+import org.arnoldc.ast.ReturnNode
+import org.arnoldc.ast.GreaterThanNode
+import org.arnoldc.ast.MethodNode
+import org.arnoldc.ast.DivisionExpressionNode
+import org.arnoldc.ast.CallReadMethodNode
 
 class ArnoldParser extends Parser {
 
@@ -36,6 +61,8 @@ class ArnoldParser extends Parser {
   val EndIf = "YOU HAVE NO RESPECT FOR LOGIC"
   val While = "STICK AROUND"
   val EndWhile = "CHILL"
+  val Break = "GET OUT"
+  val AlternativeBreak = "I NEED A VACATION"
   val DeclareMethod = "LISTEN TO ME VERY CAREFULLY"
   val MethodArguments = "I NEED YOUR CLOTHES YOUR BOOTS AND YOUR MOTORCYCLE"
   val Return = "I'LL BE BACK"
@@ -74,7 +101,7 @@ class ArnoldParser extends Parser {
   def Statement: Rule1[StatementNode] = rule {
     DeclareIntStatement | PrintStatement |
       AssignVariableStatement | ConditionStatement |
-      WhileStatement | CallMethodStatement | ReturnStatement | CallReadMethodStatement
+      WhileStatement | CallMethodStatement | ReturnStatement | CallReadMethodStatement | BreakStatement
   }
 
   def CallMethodStatement: Rule1[StatementNode] = rule {
@@ -97,6 +124,10 @@ class ArnoldParser extends Parser {
 
   def WhileStatement: Rule1[WhileNode] = rule {
     While ~ WhiteSpace ~ Operand ~ EOL ~ zeroOrMore(Statement) ~ EndWhile ~ EOL ~~> WhileNode
+  }
+
+  def BreakStatement: Rule1[StatementNode] = rule {
+    (Break | AlternativeBreak) ~ WhiteSpace ~ Operand ~ EOL ~~> BreakNode
   }
 
   def PrintStatement: Rule1[PrintNode] = rule {

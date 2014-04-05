@@ -9,6 +9,7 @@ case class WhileNode(condition: OperandNode, statements: List[AstNode]) extends 
   def generate(mv: MethodVisitor, symbolTable: SymbolTable) {
     val loopStart = new Label()
     val loopEnd = new Label()
+    symbolTable.putLabel(loopEnd)
 
     mv.visitLabel(loopStart)
     mv.visitFrame(F_FULL, symbolTable.size(), symbolTable.getStackFrame, 0, null)

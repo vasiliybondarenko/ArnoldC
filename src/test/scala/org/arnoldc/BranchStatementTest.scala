@@ -1,6 +1,6 @@
 package org.arnoldc
 
-class BranchStatementTest extends ArnoldGeneratorTest {
+class BranchStatementTest extends ArnoldGeneratorTest{
   it should "function using simple if statements" in {
     val code =
       "IT'S SHOWTIME\n" +
@@ -130,4 +130,98 @@ class BranchStatementTest extends ArnoldGeneratorTest {
         "YOU HAVE BEEN TERMINATED\n"
     getOutput(code) should equal("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n")
   }
+
+  it should "break while loop" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "STICK AROUND @NO PROBLEMO\n" +
+        "TALK TO THE HAND \"ONE\"\n" +
+        "GET OUT @NO PROBLEMO\n" +
+        "CHILL\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("ONE\n")
+  }
+
+  it should "break while loop with alternative break" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "STICK AROUND @NO PROBLEMO\n" +
+        "TALK TO THE HAND \"ONE\"\n" +
+        "I NEED A VACATION @NO PROBLEMO\n" +
+        "CHILL\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("ONE\n")
+  }
+
+  it should "break while loop if condition is satisfied" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "HEY CHRISTMAS TREE var\n" +
+        "YOU SET US UP @NO PROBLEMO\n" +
+        "STICK AROUND var\n" +
+        "TALK TO THE HAND \"ONE\"\n" +
+        "GET OUT var\n" +
+        "CHILL\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("ONE\n")
+  }
+
+  it should "break while loop if condition is satisfied on second iteration" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "HEY CHRISTMAS TREE i\n" +
+        "YOU SET US UP 0\n" +
+        "HEY CHRISTMAS TREE isEqual2\n" +
+        "YOU SET US UP @I LIED\n" +
+        "STICK AROUND @NO PROBLEMO\n" +
+        "TALK TO THE HAND i\n" +
+        "GET OUT isEqual2\n" +
+        "GET TO THE CHOPPER i\n" +
+        "HERE IS MY INVITATION i\n" +
+        "GET UP 1\n" +
+        "ENOUGH TALK\n" +
+        "GET TO THE CHOPPER isEqual2\n" +
+        "HERE IS MY INVITATION @NO PROBLEMO\n" +
+        "ENOUGH TALK\n" +
+        "CHILL\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("0\n1\n")
+  }
+
+  it should "break while loop if i equal 2" in {
+    val code =
+      "IT'S SHOWTIME\n" +
+        "HEY CHRISTMAS TREE i\n" +
+        "YOU SET US UP 0\n" +
+        "HEY CHRISTMAS TREE isEqual2\n" +
+        "YOU SET US UP @I LIED\n" +
+        "STICK AROUND @NO PROBLEMO\n" +
+        "TALK TO THE HAND i\n" +
+        "GET OUT isEqual2\n" +
+        "GET TO THE CHOPPER i\n" +
+        "HERE IS MY INVITATION i\n" +
+        "GET UP 1\n" +
+        "ENOUGH TALK\n" +
+        "GET TO THE CHOPPER isEqual2\n" +
+        "HERE IS MY INVITATION i\n" +
+        "YOU ARE NOT YOU YOU ARE ME 2\n" +
+        "ENOUGH TALK\n" +
+        "CHILL\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+    getOutput(code) should equal("0\n1\n2\n")
+  }
+
+  it should "throw an exception if break is outside of while loop" in {
+    evaluatingError {
+      val code =
+        "IT'S SHOWTIME\n" +
+        "GET OUT @NO PROBLEMO\n" +
+        "YOU HAVE BEEN TERMINATED\n"
+      getOutput(code)
+    } should startWith (
+      "WHAT THE FUCK DID I DO WRONG:\n" +
+      "Break statement cannot be placed outside of loop\n"
+    )
+  }
+
 }

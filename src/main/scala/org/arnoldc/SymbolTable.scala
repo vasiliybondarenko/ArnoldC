@@ -3,12 +3,14 @@ package org.arnoldc
 import scala.collection.mutable
 import org.parboiled.errors.ParsingException
 import org.objectweb.asm.Opcodes._
+import org.objectweb.asm.Label
 
 case class SymbolTable(upperLevel: Option[SymbolTable], currentMethod: String) {
 
   val FirstSymbolTableAddress = 0
   private val variableTable = new mutable.HashMap[String, Integer]()
   private val methodTable = new mutable.HashMap[String, MethodInformation]()
+  private val labels = new mutable.Stack[Label]()
 
   val initialNextVarAddress: Int = FirstSymbolTableAddress
 
@@ -53,6 +55,14 @@ case class SymbolTable(upperLevel: Option[SymbolTable], currentMethod: String) {
       val returnValue = if (method.returnsValue) "I" else "V"
       "(" + "I" * numberOfArguments + ")" + returnValue
     }
+  }
+
+  def putLabel(label:Label){
+    labels.push(label)
+  }
+
+  def getLastLabel():Option[Label] = {
+    if(!labels.isEmpty) Option(labels.pop()) else None
   }
 
   def getCurrentMethod(): MethodInformation = {

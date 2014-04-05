@@ -48,10 +48,4 @@ class ErrorHandlingTest extends ArnoldGeneratorTest{
     )
   }
 
-  def evaluatingError(func: => Any): String = {
-    (evaluating{
-      func
-    } should produce [Exception]).getMessage
-  }
-
 }

@@ -13,4 +13,10 @@ abstract  class ArnoldGeneratorTest extends FlatSpec with Matchers {
     byteCodeExecutor.getOutput(bytecode, className)
   }
 
+  def evaluatingError(func: => Any): String = {
+    (evaluating{
+      func
+    } should produce [Exception]).getMessage
+  }
+
 }
