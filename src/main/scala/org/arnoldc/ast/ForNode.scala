@@ -11,6 +11,8 @@ case class ForNode(loopVariableName: String, minValue: OperandNode, maxValue: Op
     val loopEnd = new Label()
     symbolTable.putLabel(loopEnd)
 
+    symbolTable.putVariable(loopVariableName)
+
     minValue.generate(mv, symbolTable)
     mv.visitVarInsn(ISTORE, symbolTable.getVariableAddress(loopVariableName))
 

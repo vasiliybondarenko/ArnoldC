@@ -226,9 +226,7 @@ class BranchStatementTest extends ArnoldGeneratorTest{
 
   it should "function when for loop executed consequently from 1 to 2" in {
     val code =
-      "IT'S SHOWTIME\n" +
-        "HEY CHRISTMAS TREE n\n" +
-        "YOU SET US UP 0\n" +
+        "IT'S SHOWTIME\n" +
         "FLY OR DIE n 1 2\n" +
         "TALK TO THE HAND n\n" +
         "RELAX\n" +
@@ -238,11 +236,9 @@ class BranchStatementTest extends ArnoldGeneratorTest{
 
   it should "function when for loop executed consequently from 1 to max variable" in {
     val code =
-      "IT'S SHOWTIME\n" +
+        "IT'S SHOWTIME\n" +
         "HEY CHRISTMAS TREE max\n" +
         "YOU SET US UP 2\n" +
-        "HEY CHRISTMAS TREE n\n" +
-        "YOU SET US UP 0\n" +
         "FLY OR DIE n 1 max\n" +
         "TALK TO THE HAND n\n" +
         "RELAX\n" +
@@ -252,13 +248,11 @@ class BranchStatementTest extends ArnoldGeneratorTest{
 
   it should "function when for loop executed consequently from min variable to max variable" in {
     val code =
-      "IT'S SHOWTIME\n" +
+        "IT'S SHOWTIME\n" +
         "HEY CHRISTMAS TREE max\n" +
         "YOU SET US UP 2\n" +
         "HEY CHRISTMAS TREE min1\n" +
         "YOU SET US UP 1\n" +
-        "HEY CHRISTMAS TREE n\n" +
-        "YOU SET US UP 0\n" +
         "FLY OR DIE n min1 max\n" +
         "TALK TO THE HAND n\n" +
         "RELAX\n" +
