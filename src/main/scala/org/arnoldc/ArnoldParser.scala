@@ -63,6 +63,8 @@ class ArnoldParser extends Parser {
   val EndWhile = "CHILL"
   val Break = "GET OUT"
   val AlternativeBreak = "I NEED A VACATION"
+  val For = "FLY OR DIE"
+  val EndFor = "RELAX"
   val DeclareMethod = "LISTEN TO ME VERY CAREFULLY"
   val MethodArguments = "I NEED YOUR CLOTHES YOUR BOOTS AND YOUR MOTORCYCLE"
   val Return = "I'LL BE BACK"
@@ -101,7 +103,8 @@ class ArnoldParser extends Parser {
   def Statement: Rule1[StatementNode] = rule {
     DeclareIntStatement | PrintStatement |
       AssignVariableStatement | ConditionStatement |
-      WhileStatement | CallMethodStatement | ReturnStatement | CallReadMethodStatement | BreakStatement
+      WhileStatement | ForStatement | CallMethodStatement | ReturnStatement |
+      CallReadMethodStatement | BreakStatement
   }
 
   def CallMethodStatement: Rule1[StatementNode] = rule {
@@ -124,6 +127,10 @@ class ArnoldParser extends Parser {
 
   def WhileStatement: Rule1[WhileNode] = rule {
     While ~ WhiteSpace ~ Operand ~ EOL ~ zeroOrMore(Statement) ~ EndWhile ~ EOL ~~> WhileNode
+  }
+
+  def ForStatement: Rule1[ForNode] = rule {
+    For ~ WhiteSpace ~ VariableName ~> (v => v) ~ WhiteSpace ~ Operand ~ WhiteSpace ~ Operand ~ EOL ~ zeroOrMore(Statement) ~ EndFor ~ EOL ~~> ForNode
   }
 
   def BreakStatement: Rule1[StatementNode] = rule {
