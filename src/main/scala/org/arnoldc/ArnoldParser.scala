@@ -63,6 +63,7 @@ class ArnoldParser extends Parser {
   val EndWhile = "CHILL"
   val Break = "GET OUT"
   val AlternativeBreak = "I NEED A VACATION"
+  val SecondAlternativeBreak = "YOUR FOSTER PARENTS ARE DEAD"
   val For = "FLY OR DIE"
   val EndFor = "RELAX"
   val DeclareMethod = "LISTEN TO ME VERY CAREFULLY"
@@ -134,7 +135,7 @@ class ArnoldParser extends Parser {
   }
 
   def BreakStatement: Rule1[StatementNode] = rule {
-    (Break | AlternativeBreak) ~ WhiteSpace ~ Operand ~ EOL ~~> BreakNode
+    (Break | AlternativeBreak | SecondAlternativeBreak) ~ WhiteSpace ~ Operand ~ EOL ~~> BreakNode
   }
 
   def PrintStatement: Rule1[PrintNode] = rule {
