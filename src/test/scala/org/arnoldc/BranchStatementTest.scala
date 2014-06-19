@@ -153,6 +153,21 @@ class BranchStatementTest extends ArnoldGeneratorTest{
     getOutput(code) should equal("ONE\n")
   }
 
+  it should "break while loop with second alternative break" in {
+    val code =
+      """
+      IT'S SHOWTIME
+      HEY CHRISTMAS TREE vartrue
+      YOU SET US UP @NO PROBLEMO
+      STICK AROUND @NO PROBLEMO
+        TALK TO THE HAND "ONE"
+        YOUR FOSTER PARENTS ARE DEAD vartrue
+      CHILL
+      YOU HAVE BEEN TERMINATED
+      """
+    getOutput(code) should equal("ONE\n")
+  }
+
   it should "break while loop if condition is satisfied" in {
     val code =
       "IT'S SHOWTIME\n" +
